@@ -15,10 +15,10 @@ class CategoriaRepo implements ICategoria {
 
         return categorias
     }
-    async getCategoriaById(id: string): Promise<categoria_func> {
+    async getCategoriaById(id_categoria_func: string): Promise<categoria_func> {
         const categorias = await prismaClient.categoria_func.findFirst({
             where: {
-                id
+                id_categoria_func
             }
         })
         return categorias as categoria_func

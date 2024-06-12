@@ -60,3 +60,18 @@ model notification {
   user_id         String
   user            user     @relation(fields: [user_id], references: [id_user])
 }
+
+model categoria_prod {
+  id_categoria_prod String @id @default(uuid())
+  descricao String
+  product produto[]
+}
+
+model produto {
+  id_produto String @id @default(uuid())
+  nome String
+  marca String?
+  preco Float?
+  categoria_id String
+  category categoria_prod @relation(fields: [categoria_id], references: [id_categoria_prod])
+}
