@@ -35,3 +35,18 @@ model project {
   user_id String?
   user user? @relation(fields: [user_id], references: [id])
 }
+
+model categoria_func {
+  id String @id @default(uuid())
+  descricao String
+  funcionario funcionario?
+}
+
+model funcionario {
+  id String @id @default(uuid())
+  nome String
+  morada String?
+  contacto String?
+  categ_id String @unique
+  categoria categoria_func @relation(fields: [categ_id], references: [id])
+}
