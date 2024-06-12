@@ -7,6 +7,8 @@ import { ICategoria } from "../../models/funcionario/reporitories/ICategoria";
 import { CategoriaRepo } from "../../models/funcionario/reporitories/implementations/CategoriaRepo";
 import { IFuncionario } from "../../models/funcionario/reporitories/IFuncionario";
 import { FuncionarioRepo } from "../../models/funcionario/reporitories/implementations/FuncionarioRepo";
+import { INotification } from "../../models/notification/repositories/INotification";
+import { NotifiRepo } from "../../models/notification/repositories/implementation/NotifRepo";
 
 container.registerSingleton<IUser>(
     "userRepo",
@@ -23,4 +25,8 @@ container.registerSingleton<ICategoria>(
 container.registerSingleton<IFuncionario>(
     "funcRepo",
     FuncionarioRepo
+)
+container.registerSingleton<INotification>(
+    "notifiRepo",
+    NotifiRepo
 )

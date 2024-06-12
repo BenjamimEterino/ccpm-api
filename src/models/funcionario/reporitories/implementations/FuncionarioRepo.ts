@@ -18,6 +18,15 @@ class FuncionarioRepo implements IFuncionario {
 
         return funcionarios
     }
+    async getFuncById(id_funcionario: string): Promise<funcionario> {
+        const func = await prismaClient.funcionario.findFirst({
+            where: {
+                id_funcionario
+            }
+        })
+
+        return func as funcionario
+    }
 
 }
 

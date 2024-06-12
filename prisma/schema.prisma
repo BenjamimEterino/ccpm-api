@@ -8,15 +8,16 @@ datasource db {
 }
 
 model user {
-  id String @id @default(uuid())
-  email String @unique
-  senha String @db.LongText
-  nome String?
-  isAdmin Boolean @default(false)
-  role roles?
-  contacto String?
-  formacao String?
-  project project[]
+  id_user      String         @id @default(uuid())
+  email        String         @unique
+  senha        String         @db.LongText
+  nome         String?
+  isAdmin      Boolean        @default(false)
+  role         roles?
+  contacto     String?
+  formacao     String?
+  project      project[]
+  notification notification[]
 }
 
 enum roles {
@@ -26,27 +27,36 @@ enum roles {
 }
 
 model project {
-  id String @id @default(uuid())
-  nome String
-  local String?
-  orcamento Float?
+  id_project  String    @id @default(uuid())
+  nome        String
+  local       String?
+  orcamento   Float?
   data_inicio DateTime?
-  data_fim DateTime?
-  user_id String?
-  user user? @relation(fields: [user_id], references: [id])
+  data_fim    DateTime?
+  user_id     String?
+  user        user?     @relation(fields: [user_id], references: [id_user])
 }
 
 model categoria_func {
-  id String @id @default(uuid())
-  descricao String
-  funcionario funcionario?
+  id_categoria_func String       @id @default(uuid())
+  descricao         String
+  funcionario       funcionario?
 }
 
 model funcionario {
-  id String @id @default(uuid())
-  nome String
-  morada String?
-  contacto String?
-  categ_id String @unique
-  categoria categoria_func @relation(fields: [categ_id], references: [id])
+  id_funcionario String         @id @default(uuid())
+  nome           String
+  morada         String?
+  contacto       String?
+  categ_id       String         @unique
+  categoria      categoria_func @relation(fields: [categ_id], references: [id_categoria_func])
+}
+
+model notification {
+  id_notification String   @id @default(uuid())
+  mensagem        String   @db.MediumText
+  lida            Boolean  @default(false)
+  data            DateTime @default(now())
+  user_id         String
+  user            user     @relation(fields: [user_id], references: [id_user])
 }

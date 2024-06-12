@@ -27,6 +27,13 @@ class usersRepo implements IUser{
 
         return user as user
     }
+    async getUserById(id_user: string): Promise<user> {
+        const user = await prismaClient.user.findFirst({
+            where: {id_user}
+        })
+
+        return user as user
+    }
 }
 
 export {usersRepo}
