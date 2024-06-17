@@ -21,6 +21,15 @@ class ProjectRepo implements IProject {
 
         return projects
     }
+    async getProjectById(id_project: string): Promise<project> {
+        const project = await prismaClient.project.findFirst({
+            where: {
+                id_project
+            }
+        })
+
+        return project as project
+    }
 
 }
 

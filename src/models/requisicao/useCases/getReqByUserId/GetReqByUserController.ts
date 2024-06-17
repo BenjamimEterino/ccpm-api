@@ -8,7 +8,7 @@ class GetReqByUserController {
 
         const reqUC = container.resolve(GetReqByUserUC)
 
-        const requisicoes = reqUC.execute(id)
+        const requisicoes = await reqUC.execute(id)
 
         return res.status(200).json(requisicoes)
     }

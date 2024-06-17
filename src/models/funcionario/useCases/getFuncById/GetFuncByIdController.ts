@@ -8,7 +8,7 @@ class GetFuncByIdController {
 
         const funcUC = container.resolve(GetFuncByIdUC)
 
-        const func = funcUC.execute(id)
+        const func = await funcUC.execute(id)
 
         return res.status(200).json(func)
     }

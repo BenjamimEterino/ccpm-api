@@ -45,7 +45,7 @@ class AuthUserUC {
             },
             token
         }
-        return token
+        return tokenResponse
     }
 }
 

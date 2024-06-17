@@ -6,7 +6,7 @@ class GetAllReqController {
     async handle(req: Request, res: Response) {
         const reqUC = container.resolve(GetAllReqUC)
         
-        const requisicoes = reqUC.execute()
+        const requisicoes = await reqUC.execute()
 
         return res.status(200).json(requisicoes)
     }

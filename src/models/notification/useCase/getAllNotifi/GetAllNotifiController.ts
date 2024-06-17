@@ -6,7 +6,7 @@ class GetAllNotifiController {
     async handle(req: Request, res: Response) {
         const notifiUC = container.resolve(GetAllNotifiUC)
 
-        const notification = notifiUC.execute()
+        const notification = await notifiUC.execute()
 
         return res.status(200).json(notification)
     }

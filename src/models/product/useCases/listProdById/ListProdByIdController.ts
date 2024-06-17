@@ -8,7 +8,7 @@ class ListProdByIdController{
 
         const productUC = container.resolve(ListProdByIdUC)
 
-        const product = productUC.execute(id_produto)
+        const product = await productUC.execute(id_produto)
 
         return res.status(200).json(product)
     }
