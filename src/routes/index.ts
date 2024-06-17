@@ -4,6 +4,7 @@ import { projectRouter } from "./project.routes";
 import { funcRoutes } from "./funcionario.routes";
 import { notifiRoutes } from "./notifications.routes";
 import { productRoutes } from "./product.routes";
+import { requisicaoRouter } from "./requisicoes.routes";
 
 const routes = Router()
 
@@ -17,5 +18,6 @@ routes.use("/project", projectRouter)
 routes.use("/funcionario", funcRoutes)
 routes.use("/notification", notifiRoutes)
 routes.use("/product", productRoutes)
+routes.use("/requisicao", requisicaoRouter)
 
 export {routes}

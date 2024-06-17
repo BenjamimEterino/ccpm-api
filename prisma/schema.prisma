@@ -18,6 +18,7 @@ model user {
   formacao     String?
   project      project[]
   notification notification[]
+  requisicao   requisicao[]
 }
 
 enum roles {
@@ -27,14 +28,16 @@ enum roles {
 }
 
 model project {
-  id_project  String    @id @default(uuid())
-  nome        String
-  local       String?
-  orcamento   Float?
-  data_inicio DateTime?
-  data_fim    DateTime?
-  user_id     String?
-  user        user?     @relation(fields: [user_id], references: [id_user])
+  id_project         String               @id @default(uuid())
+  nome               String
+  local              String?
+  orcamento          Float?
+  data_inicio        DateTime?
+  data_fim           DateTime?
+  user_id            String?
+  user               user?                @relation(fields: [user_id], references: [id_user])
+  requisicao         requisicao[]
+  funcionario        funcionario[]
 }
 
 model categoria_func {
@@ -50,6 +53,7 @@ model funcionario {
   contacto       String?
   categ_id       String         @unique
   categoria      categoria_func @relation(fields: [categ_id], references: [id_categoria_func])
+  project        project[]
 }
 
 model notification {
@@ -62,16 +66,47 @@ model notification {
 }
 
 model categoria_prod {
-  id_categoria_prod String @id @default(uuid())
-  descricao String
-  product produto[]
+  id_categoria_prod String    @id @default(uuid())
+  descricao         String
+  product           produto[]
 }
 
 model produto {
-  id_produto String @id @default(uuid())
-  nome String
-  marca String?
-  preco Float?
-  categoria_id String
-  category categoria_prod @relation(fields: [categoria_id], references: [id_categoria_prod])
+  id_produto         String               @id @default(uuid())
+  nome               String
+  marca              String?
+  preco              Float?
+  categoria_id       String
+  category           categoria_prod       @relation(fields: [categoria_id], references: [id_categoria_prod])
+  requisicao         requisicao[]
+  requisicao_produto requisicao_produto[]
+}
+
+model requisicao {
+  id_requisicao      String               @id @default(uuid())
+  data               DateTime             @default(now())
+  motivo             String?
+  status             status               @default(pendente)
+  project_id         String
+  user_id            String
+  project            project              @relation(fields: [project_id], references: [id_project])
+  user               user                 @relation(fields: [user_id], references: [id_user])
+  produto            produto[]
+  requisicao_produto requisicao_produto[]
+}
+
+model requisicao_produto {
+  quantidade        Int
+  product_id        String
+  requisicao_id     String
+  product           produto    @relation(fields: [product_id], references: [id_produto])
+  requisicao        requisicao @relation(fields: [requisicao_id], references: [id_requisicao])
+
+  @@id([product_id, requisicao_id])
+}
+
+enum status {
+  pendente
+  aceite
+  resolvido
 }

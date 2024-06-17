@@ -11,6 +11,8 @@ import { INotification } from "../../models/notification/repositories/INotificat
 import { NotifiRepo } from "../../models/notification/repositories/implementation/NotifRepo";
 import { IProduct } from "../../models/product/repositories/IProduct";
 import { ProductRepo } from "../../models/product/repositories/implementations/ProductRepo";
+import { IRequisicao } from "../../models/requisicao/repositories/IRequisicao";
+import { RequisicaoRepo } from "../../models/requisicao/repositories/RequisicaoRepo";
 
 container.registerSingleton<IUser>(
     "userRepo",
@@ -35,4 +37,8 @@ container.registerSingleton<INotification>(
 container.registerSingleton<IProduct>(
     "productRepo",
     ProductRepo
+)
+container.registerSingleton<IRequisicao>(
+    "requisicaoRepo",
+    RequisicaoRepo
 )
