@@ -9,10 +9,11 @@ import { IFuncionario } from "../../models/funcionario/reporitories/IFuncionario
 import { FuncionarioRepo } from "../../models/funcionario/reporitories/implementations/FuncionarioRepo";
 import { INotification } from "../../models/notification/repositories/INotification";
 import { NotifiRepo } from "../../models/notification/repositories/implementation/NotifRepo";
-import { IProduct } from "../../models/product/repositories/IProduct";
+import { ICategoriaProduct, IProduct } from "../../models/product/repositories/IProduct";
 import { ProductRepo } from "../../models/product/repositories/implementations/ProductRepo";
 import { IRequisicao } from "../../models/requisicao/repositories/IRequisicao";
 import { RequisicaoRepo } from "../../models/requisicao/repositories/RequisicaoRepo";
+import { CategoryProductRepo } from "../../models/product/repositories/implementations/CategoryProductRepo";
 
 container.registerSingleton<IUser>(
     "userRepo",
@@ -41,4 +42,8 @@ container.registerSingleton<IProduct>(
 container.registerSingleton<IRequisicao>(
     "requisicaoRepo",
     RequisicaoRepo
+)
+container.registerSingleton<ICategoriaProduct>(
+    "categoriaProductRepo",
+    CategoryProductRepo
 )

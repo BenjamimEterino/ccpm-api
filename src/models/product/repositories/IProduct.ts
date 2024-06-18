@@ -8,6 +8,6 @@ interface IProduct {
 
 interface ICategoriaProduct {
     create(descricao: string): Promise<void>
-    listCategoriaProduct(): Promise<categoria_prod>
+    listCategoriaProduct(): Promise<categoria_prod[]>
 }
 export {IProduct, ICategoriaProduct}
