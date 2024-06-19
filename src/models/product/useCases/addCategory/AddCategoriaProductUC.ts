@@ -10,7 +10,7 @@ class AddCategoriaProductUC {
     ) { }
     
     async execute(descricao: string) {
-        if (descricao == undefined) {
+        if (descricao == "") {
             throw new AppError("Erro ao adicionar")
         }
         await this.categoriaProductRepo.create(descricao)
