@@ -7,6 +7,7 @@ interface IRequisicao {
     getByUserId(user_id: string): Promise<requisicao[]>
     addRequisicaoProduct(id_requisicao: string, productsList: ListProduct[]): Promise<void>
     getByProjectID(project_id: string): Promise<requisicao[]>
+    approveReq(id_requisicao: string): Promise<requisicao>
 }
 
 export {IRequisicao}

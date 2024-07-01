@@ -1,7 +1,7 @@
 import { $Enums, requisicao } from "@prisma/client";
-import { IRequisicao } from "./IRequisicao";
-import prismaClient from "../../../prisma";
-import { ListProduct } from "../useCases/createReq/CreateReqUC";
+import { IRequisicao } from "../IRequisicao";
+import prismaClient from "../../../../prisma";
+import { ListProduct } from "../../useCases/createReq/CreateReqUC";
 
 class RequisicaoRepo implements IRequisicao {
     async createRequisicao(project_id: string, user_id: string, motivo: string): Promise<requisicao> {
@@ -16,7 +16,11 @@ class RequisicaoRepo implements IRequisicao {
         return requisicao as requisicao
     }
     async listRequisicoes(): Promise<requisicao[]> {
-        const requisicoes = await prismaClient.requisicao.findMany()
+        const requisicoes = await prismaClient.requisicao.findMany({
+            include: {
+                produto: true
+            }
+        })
 
         return requisicoes
     }
@@ -44,10 +48,29 @@ class RequisicaoRepo implements IRequisicao {
         const requisicoes = await prismaClient.requisicao.findMany({
             where: {
                 project_id
+            },
+            include: {
+                requisicao_produto: {
+                    include: {
+                        product: true
+                    }
+                }
             }
         })
 
         return requisicoes
+    }
+    async approveReq(id_requisicao: string): Promise<requisicao> {
+        const requisicao = await prismaClient.requisicao.update({
+            where: {
+                id_requisicao
+            },
+            data: {
+                status: "aceite"
+            }
+        })
+
+        return requisicao
     }
     
 }

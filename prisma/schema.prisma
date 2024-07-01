@@ -109,4 +109,5 @@ enum status {
   pendente
   aceite
   resolvido
+  rejeitado
 }

@@ -12,8 +12,8 @@ import { NotifiRepo } from "../../models/notification/repositories/implementatio
 import { ICategoriaProduct, IProduct } from "../../models/product/repositories/IProduct";
 import { ProductRepo } from "../../models/product/repositories/implementations/ProductRepo";
 import { IRequisicao } from "../../models/requisicao/repositories/IRequisicao";
-import { RequisicaoRepo } from "../../models/requisicao/repositories/RequisicaoRepo";
 import { CategoryProductRepo } from "../../models/product/repositories/implementations/CategoryProductRepo";
+import { RequisicaoRepo } from "../../models/requisicao/repositories/implementations/RequisicaoRepo";
 
 container.registerSingleton<IUser>(
     "userRepo",
