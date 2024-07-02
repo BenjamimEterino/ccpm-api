@@ -72,6 +72,18 @@ class RequisicaoRepo implements IRequisicao {
 
         return requisicao
     }
+    async deliverReq(id_requisicao: string): Promise<requisicao> {
+        const requisicao = await prismaClient.requisicao.update({
+            where: {
+                id_requisicao
+            },
+            data: {
+                status: "entregue"
+            }
+        })
+
+        return requisicao
+    }
     
 }
 
