@@ -7,10 +7,12 @@ class CreateNotifiUC {
         @inject("notifiRepo")
         private notifiRepo: INotification
     ) { }
-    
-    async execute(user_id: string, mensagem: string) {
-        await this.notifiRepo.create(user_id, mensagem)
+
+    async execute(user_id: string, requisicaoDate: Date, requisicaoStatus: string) {
+
+        const msg = `A sua requisição de ${requisicaoDate.toLocaleString("pt")} encontra-se no estado ${requisicaoStatus}`
+        await this.notifiRepo.create(user_id, msg)
     }
 }
 
-export {CreateNotifiUC}
+export { CreateNotifiUC }

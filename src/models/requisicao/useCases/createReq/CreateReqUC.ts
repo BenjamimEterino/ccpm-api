@@ -1,5 +1,7 @@
-import { inject, injectable } from "tsyringe";
+import { container, inject, injectable } from "tsyringe";
 import { IRequisicao } from "../../repositories/IRequisicao";
+import { INotification } from "../../../notification/repositories/INotification";
+import { CreateNotifiUC } from "../../../notification/useCase/createNotifi/CreateNotifiUC";
 
 export type ListProduct = {
     id_produto: string,
@@ -17,6 +19,10 @@ class CreateReqUC {
         const requisicao = await this.reqRepo.createRequisicao(project_id, '8699a102-6881-4a17-90ec-ec582e3dbf71', motivo)
         
         await this.reqRepo.addRequisicaoProduct(requisicao.id_requisicao, productsList)
+
+        const createNotifiUC = container.resolve(CreateNotifiUC)
+
+        await createNotifiUC.execute('8699a102-6881-4a17-90ec-ec582e3dbf71', new Date(requisicao.data), requisicao.status.toString())
     }
 }
 

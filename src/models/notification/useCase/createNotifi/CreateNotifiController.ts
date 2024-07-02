@@ -8,7 +8,7 @@ class CreateNotifiController {
 
         const notifiUC = container.resolve(CreateNotifiUC)
 
-        await notifiUC.execute(user_id, mensagem)
+        await notifiUC.execute(user_id, mensagem, '')
 
         return res.status(201).json({message: "Notificação criada"})
     }

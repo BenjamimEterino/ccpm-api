@@ -9,7 +9,7 @@ class DeliverRequisicaoUC{
     ) { }
     
     async execute(id_requisicao: string) {
-        const requisicao = await this.requisicaoRepo.approveReq(id_requisicao)
+        const requisicao = await this.requisicaoRepo.deliverReq(id_requisicao)
 
         return requisicao
     }
