@@ -12,7 +12,6 @@ model user {
   email        String         @unique
   senha        String         @db.LongText
   nome         String?
-  isAdmin      Boolean        @default(false)
   role         roles?
   contacto     String?
   formacao     String?
@@ -23,8 +22,10 @@ model user {
 
 enum roles {
   admin
-  gestor
   encarregado
+  directorObra
+  directorProjecto
+  gestorLogistica
 }
 
 model project {

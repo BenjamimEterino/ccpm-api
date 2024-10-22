@@ -1,15 +1,16 @@
-import {    $Enums, user } from "@prisma/client";
+import {    $Enums, roles, user } from "@prisma/client";
 import { IUser } from "../IUser";
 import prismaClient from "../../../../prisma";
 
 
 
 class usersRepo implements IUser{
-    createUser(email: string, senha: string): Promise<user> {
+    createUser(email: string, senha: string, role: string): Promise<user> {
         const user = prismaClient.user.create({
             data: {
                 email,
-                senha
+                senha,
+                role: role as roles
             }
         })
 
@@ -27,7 +28,7 @@ class usersRepo implements IUser{
 
         return user as user
     }
-    async getUserById(id_user: string): Promise<user> {
+    async findUserById(id_user: string): Promise<user> {
         const user = await prismaClient.user.findFirst({
             where: {id_user}
         })

@@ -11,19 +11,25 @@ class CreateUserUseCase {
         
     ) { }
     
-    async execute(email: string, senha: string) {
+    async execute(email: string, senha: string, role: string) {
 
         const userExists = await this.userRepo.findByEmail(email)
 
         if (userExists) {
+            
             throw new AppError("User existe", 400)
+        }
+
+        if (!role) {
+
+            throw new AppError("Precisa definir o cargo")
         }
 
         senha == "" || senha == undefined ? senha = Math.floor(Math.random() * 65656585).toString() : senha == senha
 
         const hashedPassword = await hash(senha, 8)
 
-        await this.userRepo.createUser(email, hashedPassword)
+        await this.userRepo.createUser(email, hashedPassword, role)
     }
 }
 

@@ -5,6 +5,7 @@ import { GetReqByUserController } from "../models/requisicao/useCases/getReqByUs
 import { GetRequisicaoByProjectIDController } from "../models/requisicao/useCases/getByProjectID/GetRequisicaoByProjectIDController";
 import { ApproveRequisicaoController } from "../models/requisicao/useCases/approveRequisicao/ApproveRequisicaoController";
 import { DeliverRequisicaoController } from "../models/requisicao/useCases/deliverRequisicao/DeliverRequisicaoController";
+import { ensureAuth } from "../shared/middlewares/ensureAuth";
 
 const requisicaoRouter = Router();
 
@@ -16,7 +17,7 @@ const approveReq = new ApproveRequisicaoController()
 const deliverReq = new DeliverRequisicaoController()
 
 requisicaoRouter.post("/", createReq.handle)
-requisicaoRouter.get("/", getAllReq.handle)
+requisicaoRouter.get("/", ensureAuth, getAllReq.handle)
 requisicaoRouter.get("/user/:id", getReqByUser.handle)
 requisicaoRouter.get("/project/:project_id", getReqByProject.handle)
 requisicaoRouter.put("/approve/:id_requisicao", approveReq.handle)

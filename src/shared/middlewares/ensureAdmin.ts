@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { UsersRepository } from "../../modules/users/repositories/implementations/UsersRepository";
+import { usersRepo } from "../../models/user/repositories/implementations/UsersRepo";
 import { AppError } from "../../errors/AppError";
 
 export async function ensureAdmin(
@@ -7,14 +7,15 @@ export async function ensureAdmin(
   res: Response,
   next: NextFunction
 ) {
-  const user_id = req.user.id;
+  const user_id = req.user.id_user;
 
-  const userRepo = new UsersRepository();
+  const userRepo = new usersRepo();
 
-  const user = await userRepo.findById(user_id);
+  const user = await userRepo.findUserById(user_id);
 
-  if (!user.isAdmin) {
+  if (user.role !== "admin") {
     throw new AppError("User is not admin", 401);
   }
+
   return next();
 }
