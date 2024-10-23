@@ -13,7 +13,7 @@ routes.get("/", (res: Response) => {
     res.status(200).json({message: "API running"})
 })
 
-routes.use("/user", userRoutes)
+routes.use("/users", userRoutes)
 routes.use("/project", projectRouter)
 routes.use("/funcionario", funcRoutes)
 routes.use("/notification", notifiRoutes)
