@@ -8,6 +8,7 @@ class CreateUserController{
     async handle(req: Request, res: Response) {
         const { email, senha, role } = req.body;
 
+        console.log(email, senha, role);
         
         const createUserUseCase = container.resolve(CreateUserUseCase);
 

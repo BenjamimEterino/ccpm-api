@@ -10,14 +10,14 @@ const routes = Router()
 
 
 routes.get("/", (res: Response) => {
-    res.status(200).json({message: "API running"})
+    res.status(200).json({ message: "API running" })
 })
 
-routes.use("/users", userRoutes)
+routes.use("/user", userRoutes)
 routes.use("/project", projectRouter)
 routes.use("/funcionario", funcRoutes)
 routes.use("/notification", notifiRoutes)
 routes.use("/product", productRoutes)
 routes.use("/requisicao", requisicaoRouter)
 
-export {routes}
+export { routes }

@@ -17,7 +17,7 @@ const approveReq = new ApproveRequisicaoController()
 const deliverReq = new DeliverRequisicaoController()
 
 requisicaoRouter.post("/", createReq.handle)
-requisicaoRouter.get("/", ensureAuth, getAllReq.handle)
+requisicaoRouter.get("/", getAllReq.handle)
 requisicaoRouter.get("/user/:id", getReqByUser.handle)
 requisicaoRouter.get("/project/:project_id", getReqByProject.handle)
 requisicaoRouter.put("/approve/:id_requisicao", approveReq.handle)
