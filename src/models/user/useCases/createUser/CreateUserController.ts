@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { CreateUserUseCase } from "./CreateUserUseCase";
 import { AppError } from "../../../../errors/AppError";
-import { stringify } from "querystring";
 
 class CreateUserController{
     async handle(req: Request, res: Response) {
