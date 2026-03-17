@@ -9,6 +9,7 @@ interface IRequisicao {
     getByProjectID(project_id: string): Promise<requisicao[]>
     approveReq(id_requisicao: string): Promise<requisicao>
     deliverReq(id_requisicao: string): Promise<requisicao>
+    getRequisicaoById(id_requisicao: string): Promise<requisicao | null>
 }
 
 export {IRequisicao}

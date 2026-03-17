@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { GetByProjectIDUC } from "./GetByProjectIDUC";
+import { log } from "console";
 
-class GetRequisicaoByProjectIDController{
+class GetRequisicaoByProjectIDController {
     async handle(req: Request, res: Response) {
         const { project_id } = req.params;
 
@@ -14,4 +15,4 @@ class GetRequisicaoByProjectIDController{
     }
 }
 
-export {GetRequisicaoByProjectIDController}
+export { GetRequisicaoByProjectIDController }

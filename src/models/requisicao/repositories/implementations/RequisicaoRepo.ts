@@ -18,7 +18,13 @@ class RequisicaoRepo implements IRequisicao {
     async listRequisicoes(): Promise<requisicao[]> {
         const requisicoes = await prismaClient.requisicao.findMany({
             include: {
-                produto: true
+                requisicao_produto: {
+                    include: {
+                        product: true
+                    }
+
+                }
+                
             }
         })
 
@@ -79,6 +85,23 @@ class RequisicaoRepo implements IRequisicao {
             },
             data: {
                 status: "entregue"
+            }
+        })
+
+        return requisicao
+    }
+
+    async getRequisicaoById(id_requisicao: string): Promise<requisicao | null> {
+        const requisicao = await prismaClient.requisicao.findUnique({
+            where: {
+                id_requisicao
+            },
+            include: {
+                requisicao_produto: {
+                    include: {
+                        product: true
+                    }
+                }
             }
         })
 
