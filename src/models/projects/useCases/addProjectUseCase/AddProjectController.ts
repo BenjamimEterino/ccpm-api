@@ -4,11 +4,13 @@ import { AddProjectUseCase } from "./AddProjectUseCase";
 
 class AddProjectController {
     async handle(req: Request, res: Response) {
-        const { user_id, nome, local, orcamento, data_inicio, data_fim } = req.body;
+        const { nome, orcamento, data_fim, id_funcionario } = req.body;
+
+        // console.log(nome, orcamento, data_fim, id_funcionario)
 
         const addProjectUC = container.resolve(AddProjectUseCase);
 
-        await addProjectUC.execute({ user_id, nome, local, orcamento, data_inicio, data_fim })
+        await addProjectUC.execute({ nome, orcamento: parseInt(orcamento), data_fim, id_funcionario })
 
         return res.status(201).json({ message: "Added project" })
     }

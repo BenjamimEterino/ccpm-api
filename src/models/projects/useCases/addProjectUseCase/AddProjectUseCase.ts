@@ -9,8 +9,19 @@ class AddProjectUseCase {
         private projectRepo: IProject
     ) { }
 
-    async execute({ user_id, nome, local, orcamento, data_inicio, data_fim }: IProjectDTO) {
-        await this.projectRepo.create({ user_id, nome, local, orcamento, data_inicio, data_fim })
+    async execute({ nome, orcamento, data_fim, id_funcionario }: IProjectDTO) {
+        try {
+            const project: any = await this.projectRepo.create({ nome, orcamento, data_fim })
+
+            console.log(project)
+
+            await this.projectRepo.addResponsavelProject(project.id_project, id_funcionario as string)
+        }
+        catch (err) {
+            console.log(err)
+        }
+
+       
     }
 }
 
