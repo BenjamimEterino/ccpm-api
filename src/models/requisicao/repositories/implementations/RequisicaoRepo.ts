@@ -23,7 +23,8 @@ class RequisicaoRepo implements IRequisicao {
                         product: true
                     }
 
-                }
+                },
+                project: true
                 
             }
         })
@@ -101,7 +102,8 @@ class RequisicaoRepo implements IRequisicao {
                     include: {
                         product: true
                     }
-                }
+                },
+                project: true,
             }
         })
 

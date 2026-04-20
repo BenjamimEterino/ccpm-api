@@ -29,16 +29,20 @@ enum roles {
 }
 
 model project {
-  id_project         String               @id @default(uuid())
-  nome               String
-  local              String?
-  orcamento          Float?
-  data_inicio        DateTime?
-  data_fim           DateTime?
-  user_id            String?
-  user               user?                @relation(fields: [user_id], references: [id_user])
-  requisicao         requisicao[]
-  funcionario        funcionario[]
+  id_project  String        @id @default(uuid())
+  nome        String
+  local       String?
+  orcamento   Float?
+  data_inicio DateTime?
+  data_fim    DateTime?
+  user_id     String?
+  user        user?         @relation(fields: [user_id], references: [id_user])
+  requisicao  requisicao[]
+  funcionario funcionario[]
+  client      cliente[]
+  tarefas     tarefa[]
+
+  responsavelProjectos responsavel_projecto[]
 }
 
 model categoria_func {
@@ -97,13 +101,45 @@ model requisicao {
 }
 
 model requisicao_produto {
-  quantidade        Int
-  product_id        String
-  requisicao_id     String
-  product           produto    @relation(fields: [product_id], references: [id_produto])
-  requisicao        requisicao @relation(fields: [requisicao_id], references: [id_requisicao])
+  quantidade    Int
+  product_id    String
+  requisicao_id String
+  product       produto    @relation(fields: [product_id], references: [id_produto])
+  requisicao    requisicao @relation(fields: [requisicao_id], references: [id_requisicao])
 
   @@id([product_id, requisicao_id])
+}
+
+model cliente {
+  id_cliente String    @id @default(uuid())
+  nome       String
+  email      String    @unique
+  contacto   String?
+  projects   project[]
+}
+
+model tarefa {
+  id_tarefa  String  @id @default(uuid())
+  descricao  String
+  project_id String
+  project    project @relation(fields: [project_id], references: [id_project])
+}
+
+model funcinario {
+  id_funcionario String  @id @default(uuid())
+  nome           String
+  endereco       String?
+  contacto       String?
+
+  responsavelProjectos responsavel_projecto[]
+}
+
+model responsavel_projecto {
+  project_id     String
+  funcionario_id String
+  project        project     @relation(fields: [project_id], references: [id_project])
+  funcionario    funcinario @relation(fields: [funcionario_id], references: [id_funcionario])
+  @@id([project_id, funcionario_id])
 }
 
 enum status {
