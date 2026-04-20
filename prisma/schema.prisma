@@ -39,16 +39,17 @@ model project {
   user        user?         @relation(fields: [user_id], references: [id_user])
   requisicao  requisicao[]
   funcionario funcionario[]
-  client      cliente[]
+  client      cliente?        @relation(fields: [client_id], references: [id_cliente])
+  client_id   String?
   tarefas     tarefa[]
 
-  responsavelProjectos responsavel_projecto[]
+  responsavelProjectos responsavel_projecto?
 }
 
 model categoria_func {
   id_categoria_func String       @id @default(uuid())
   descricao         String
-  funcionario       funcionario?
+  funcionario       funcionario[]
 }
 
 model funcionario {
@@ -56,9 +57,10 @@ model funcionario {
   nome           String
   morada         String?
   contacto       String?
-  categ_id       String         @unique
+  categ_id       String         
   categoria      categoria_func @relation(fields: [categ_id], references: [id_categoria_func])
   project        project[]
+  responsavelProjectos responsavel_projecto[]
 }
 
 model notification {
@@ -125,20 +127,11 @@ model tarefa {
   project    project @relation(fields: [project_id], references: [id_project])
 }
 
-model funcinario {
-  id_funcionario String  @id @default(uuid())
-  nome           String
-  endereco       String?
-  contacto       String?
-
-  responsavelProjectos responsavel_projecto[]
-}
-
 model responsavel_projecto {
-  project_id     String
+  project_id     String @unique
   funcionario_id String
   project        project     @relation(fields: [project_id], references: [id_project])
-  funcionario    funcinario @relation(fields: [funcionario_id], references: [id_funcionario])
+  funcionario    funcionario @relation(fields: [funcionario_id], references: [id_funcionario])
   @@id([project_id, funcionario_id])
 }
 

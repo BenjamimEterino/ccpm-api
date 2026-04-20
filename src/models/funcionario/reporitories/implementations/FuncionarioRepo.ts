@@ -3,6 +3,7 @@ import prismaClient from "../../../../prisma";
 import { IFuncionario } from "../IFuncionario";
 
 class FuncionarioRepo implements IFuncionario {
+
     async create(categ_id: string, nome: string, morada: string, contacto: string): Promise<void> {
         await prismaClient.funcionario.create({
             data: {
@@ -27,7 +28,14 @@ class FuncionarioRepo implements IFuncionario {
 
         return func as funcionario
     }
-
+    async getFuncByCategId(categ_id: string): Promise<funcionario[]> {
+        const func = await prismaClient.funcionario.findMany({
+            where: {
+                categ_id
+            }
+        })
+        return func as funcionario[]
+    }
 }
 
 export { FuncionarioRepo }

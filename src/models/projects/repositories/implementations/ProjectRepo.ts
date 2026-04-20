@@ -17,7 +17,17 @@ class ProjectRepo implements IProject {
         })
     }
     async listProjects(): Promise<project[]> {
-        const projects = await prismaClient.project.findMany()
+        const projects = await prismaClient.project.findMany({
+            include: {
+                responsavelProjectos: {
+                    include: {
+                        funcionario: true
+                    }
+                },
+                tarefas: true,
+                client: true
+            }
+        })
 
         return projects
     }
