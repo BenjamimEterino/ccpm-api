@@ -93,8 +93,9 @@ model produto {
 
 model requisicao {
   id_requisicao      String               @id @default(uuid())
+  referencia         Int                  
   data               DateTime             @default(now())
-  motivo             String?
+  descricao          String?              @db.MediumText
   status             status               @default(pendente)
   project_id         String
   user_id            String
@@ -102,6 +103,8 @@ model requisicao {
   user               user                 @relation(fields: [user_id], references: [id_user])
   produto            produto[]
   requisicao_produto requisicao_produto[]
+  id_tarefa          String?
+  tarefa             tarefa?              @relation(fields: [id_tarefa], references: [id_tarefa])
 }
 
 model requisicao_produto {
@@ -133,6 +136,8 @@ model tarefa {
   project        project       @relation(fields: [project_id], references: [id_project])
   responsavel_id String?
   responsavel    funcionario?  @relation(fields: [responsavel_id], references: [id_funcionario])
+
+  requisicaos requisicao[]
 }
 
 model responsavel_projecto {

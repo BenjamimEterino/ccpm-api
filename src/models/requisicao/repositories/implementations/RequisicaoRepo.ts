@@ -4,12 +4,15 @@ import prismaClient from "../../../../prisma";
 import { ListProduct } from "../../useCases/createReq/CreateReqUC";
 
 class RequisicaoRepo implements IRequisicao {
-    async createRequisicao(project_id: string, user_id: string, motivo: string): Promise<requisicao> {
+    async createRequisicao(project_id: string, user_id: string, descricao: string, referencia: number, data: Date, id_tarefa: string): Promise<requisicao> {
         const requisicao = await prismaClient.requisicao.create({
             data: {
                 project_id,
                 user_id,
-                motivo
+                descricao,
+                referencia,
+                data: new Date(data),
+                id_tarefa
             }
         })
 
@@ -25,7 +28,7 @@ class RequisicaoRepo implements IRequisicao {
 
                 },
                 project: true
-                
+
             }
         })
 
@@ -34,8 +37,9 @@ class RequisicaoRepo implements IRequisicao {
     async getByUserId(user_id: string): Promise<requisicao[]> {
         const requisicoes = await prismaClient.requisicao.findMany({
             where: {
-            user_id
-        }})
+                user_id
+            }
+        })
 
         return requisicoes
     }
@@ -109,7 +113,7 @@ class RequisicaoRepo implements IRequisicao {
 
         return requisicao
     }
-    
+
 }
 
-export {RequisicaoRepo}
+export { RequisicaoRepo }

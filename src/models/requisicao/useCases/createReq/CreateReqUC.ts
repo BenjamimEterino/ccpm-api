@@ -15,14 +15,17 @@ class CreateReqUC {
         private reqRepo: IRequisicao
     ) { }
 
-    async execute(project_id: string, user_id: string, motivo: string, productsList: ListProduct[]) {
-        const requisicao = await this.reqRepo.createRequisicao(project_id, '8699a102-6881-4a17-90ec-ec582e3dbf71', motivo)
-        
+    async execute(project_id: string, user_id: string, descricao: string, productsList: ListProduct[], data: Date, id_tarefa: string) {
+
+        const listSize = (await this.reqRepo.listRequisicoes()).length
+
+        const requisicao = await this.reqRepo.createRequisicao(project_id, user_id, descricao, listSize + 1, data, id_tarefa)
+
         await this.reqRepo.addRequisicaoProduct(requisicao.id_requisicao, productsList)
 
-        const createNotifiUC = container.resolve(CreateNotifiUC)
+        // const createNotifiUC = container.resolve(CreateNotifiUC)
 
-        await createNotifiUC.execute('8699a102-6881-4a17-90ec-ec582e3dbf71', new Date(requisicao.data), requisicao.status.toString())
+        // await createNotifiUC.execute('8699a102-6881-4a17-90ec-ec582e3dbf71', new Date(requisicao.data), requisicao.status.toString())
     }
 }
 

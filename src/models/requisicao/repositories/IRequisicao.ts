@@ -2,7 +2,7 @@ import { requisicao } from "@prisma/client"
 import { ListProduct } from "../useCases/createReq/CreateReqUC"
 
 interface IRequisicao {
-    createRequisicao(project_id: string, user_id: string, motivo: string): Promise<requisicao>
+    createRequisicao(project_id: string, user_id: string, descricao: string, referencia: number, data: Date, id_tarefa: string): Promise<requisicao>
     listRequisicoes(): Promise<requisicao[]>
     getByUserId(user_id: string): Promise<requisicao[]>
     addRequisicaoProduct(id_requisicao: string, productsList: ListProduct[]): Promise<void>
