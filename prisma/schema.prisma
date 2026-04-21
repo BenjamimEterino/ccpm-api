@@ -39,7 +39,7 @@ model project {
   user        user?         @relation(fields: [user_id], references: [id_user])
   requisicao  requisicao[]
   funcionario funcionario[]
-  client      cliente?        @relation(fields: [client_id], references: [id_cliente])
+  client      cliente?      @relation(fields: [client_id], references: [id_cliente])
   client_id   String?
   tarefas     tarefa[]
 
@@ -47,20 +47,22 @@ model project {
 }
 
 model categoria_func {
-  id_categoria_func String       @id @default(uuid())
+  id_categoria_func String        @id @default(uuid())
   descricao         String
   funcionario       funcionario[]
 }
 
 model funcionario {
-  id_funcionario String         @id @default(uuid())
-  nome           String
-  morada         String?
-  contacto       String?
-  categ_id       String         
-  categoria      categoria_func @relation(fields: [categ_id], references: [id_categoria_func])
-  project        project[]
+  id_funcionario       String                 @id @default(uuid())
+  nome                 String
+  morada               String?
+  contacto             String?
+  categ_id             String
+  categoria            categoria_func         @relation(fields: [categ_id], references: [id_categoria_func])
+  project              project[]
   responsavelProjectos responsavel_projecto[]
+
+  tarefas tarefa[]
 }
 
 model notification {
@@ -121,17 +123,24 @@ model cliente {
 }
 
 model tarefa {
-  id_tarefa  String  @id @default(uuid())
-  descricao  String
-  project_id String
-  project    project @relation(fields: [project_id], references: [id_project])
+  id_tarefa      String        @id @default(uuid())
+  descricao      String?       @db.MediumText
+  actividade     String
+  data_inicio    DateTime?
+  data_fim       DateTime?
+  status         status_tarefa @default(nova)
+  project_id     String
+  project        project       @relation(fields: [project_id], references: [id_project])
+  responsavel_id String?
+  responsavel    funcionario?  @relation(fields: [responsavel_id], references: [id_funcionario])
 }
 
 model responsavel_projecto {
-  project_id     String @unique
+  project_id     String      @unique
   funcionario_id String
   project        project     @relation(fields: [project_id], references: [id_project])
   funcionario    funcionario @relation(fields: [funcionario_id], references: [id_funcionario])
+
   @@id([project_id, funcionario_id])
 }
 
@@ -140,4 +149,11 @@ enum status {
   aceite
   entregue
   rejeitado
+}
+
+enum status_tarefa {
+  nova
+  atribuida
+  em_progresso
+  concluida
 }

@@ -14,6 +14,8 @@ import { ProductRepo } from "../../models/product/repositories/implementations/P
 import { IRequisicao } from "../../models/requisicao/repositories/IRequisicao";
 import { CategoryProductRepo } from "../../models/product/repositories/implementations/CategoryProductRepo";
 import { RequisicaoRepo } from "../../models/requisicao/repositories/implementations/RequisicaoRepo";
+import { TaskRepo } from "../../models/projects/repositories/implementations/TaskRepo";
+import { ITask } from "../../models/projects/repositories/ITask";
 
 container.registerSingleton<IUser>(
     "userRepo",
@@ -46,4 +48,8 @@ container.registerSingleton<IRequisicao>(
 container.registerSingleton<ICategoriaProduct>(
     "categoriaProductRepo",
     CategoryProductRepo
+)
+container.registerSingleton<ITask>(
+    "taskRepo",
+    TaskRepo
 )

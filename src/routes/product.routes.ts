@@ -16,7 +16,7 @@ const listCategoriaProd = new ListCategoriaProductController()
 
 productRoutes.post("/", createProd.handle)
 productRoutes.get("/", getAllProd.handle)
-productRoutes.get("/id_produto", getProdById.handle)
+productRoutes.get("/:id_produto", getProdById.handle)
 
 productRoutes.post("/categoria", addCategoriaProd.handle)
 productRoutes.get("/categoria", listCategoriaProd.handle)
