@@ -19,9 +19,14 @@ class CreateReqUC {
 
         const listSize = (await this.reqRepo.listRequisicoes()).length
 
-        const requisicao = await this.reqRepo.createRequisicao(project_id, user_id, descricao, listSize + 1, data, id_tarefa)
+        try {
+            const requisicao = await this.reqRepo.createRequisicao(project_id, user_id, descricao, listSize + 1, data, id_tarefa)
+            await this.reqRepo.addRequisicaoProduct(requisicao.id_requisicao, productsList)
+        } catch (error) {
+            console.log(error);
+        }
 
-        await this.reqRepo.addRequisicaoProduct(requisicao.id_requisicao, productsList)
+        // await this.reqRepo.addRequisicaoProduct(requisicao.id_requisicao, productsList)
 
         // const createNotifiUC = container.resolve(CreateNotifiUC)
 
