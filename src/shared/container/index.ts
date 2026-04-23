@@ -16,6 +16,8 @@ import { CategoryProductRepo } from "../../models/product/repositories/implement
 import { RequisicaoRepo } from "../../models/requisicao/repositories/implementations/RequisicaoRepo";
 import { TaskRepo } from "../../models/projects/repositories/implementations/TaskRepo";
 import { ITask } from "../../models/projects/repositories/ITask";
+import { ArmazenRepo } from "../../models/product/repositories/implementations/ArmazemRepo";
+import { IArmazem } from "../../models/product/repositories/IArmazem";
 
 container.registerSingleton<IUser>(
     "userRepo",
@@ -52,4 +54,8 @@ container.registerSingleton<ICategoriaProduct>(
 container.registerSingleton<ITask>(
     "taskRepo",
     TaskRepo
+)
+container.registerSingleton<IArmazem>(
+    "armazemRepo",
+    ArmazenRepo
 )

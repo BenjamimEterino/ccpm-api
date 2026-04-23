@@ -8,8 +8,8 @@ class CreateProdUC {
         private productRepo: IProduct
     ) { }
     
-    async execute(categoria_id: string, nome: string, marca: string, preco: number) {
-        await this.productRepo.create(categoria_id, nome, marca, preco)
+    async execute(categoria_id: string, nome: string, preco: number) {
+        await this.productRepo.create(categoria_id, nome, preco)
     }
 }
 

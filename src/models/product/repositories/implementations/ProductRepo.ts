@@ -3,12 +3,11 @@ import { IProduct } from "../IProduct";
 import prismaClient from "../../../../prisma";
 
 class ProductRepo implements IProduct {
-    async create(categoria_id: string, nome: string, marca: string, preco: number): Promise<void> {
+    async create(categoria_id: string, nome: string, preco: number): Promise<void> {
         await prismaClient.produto.create({
             data: {
                 categoria_id,
                 nome,
-                marca,
                 preco
             }
         })

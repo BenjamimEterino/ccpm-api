@@ -5,6 +5,8 @@ import { funcRoutes } from "./funcionario.routes";
 import { notifiRoutes } from "./notifications.routes";
 import { productRoutes } from "./product.routes";
 import { requisicaoRouter } from "./requisicoes.routes";
+import {armazemRouter} from "./armazem.routes";
+import { productCategoryRoutes } from "./categoriaProdutos.routes";
 
 const routes = Router()
 
@@ -19,5 +21,7 @@ routes.use("/funcionario", funcRoutes)
 routes.use("/notification", notifiRoutes)
 routes.use("/product", productRoutes)
 routes.use("/requisicao", requisicaoRouter)
+routes.use("/armazem", armazemRouter)
+routes.use("/categoriaProduto", productCategoryRoutes)
 
 export { routes }

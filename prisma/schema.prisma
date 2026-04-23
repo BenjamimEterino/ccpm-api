@@ -89,6 +89,8 @@ model produto {
   category           categoria_prod       @relation(fields: [categoria_id], references: [id_categoria_prod])
   requisicao         requisicao[]
   requisicao_produto requisicao_produto[]
+
+  transferenciaLinhas transferencia_linhas[]
 }
 
 model requisicao {
@@ -147,6 +149,30 @@ model responsavel_projecto {
   funcionario    funcionario @relation(fields: [funcionario_id], references: [id_funcionario])
 
   @@id([project_id, funcionario_id])
+}
+
+model armazem {
+  id_armazem String    @id @default(uuid())
+  local      String
+}
+
+model transferencia_produto {
+  id_transferencia Int    @id @default(autoincrement())
+  data             DateTime  @default(now())
+  quantidade       Int
+  armazem_origem   String?
+  armazem_destino  String?
+
+  transferenciaLinhas transferencia_linhas[]
+}
+
+model transferencia_linhas {
+  id String @id @default(uuid())
+  id_transferencia Int
+  product_id       String
+  quantidade       Int
+  transferencia    transferencia_produto @relation(fields: [id_transferencia], references: [id_transferencia])
+  product          produto              @relation(fields: [product_id], references: [id_produto])
 }
 
 enum status {

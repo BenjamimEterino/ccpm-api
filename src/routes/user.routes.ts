@@ -11,7 +11,7 @@ const createUser = new CreateUserController()
 const getAllUsers = new GetAllUsersController()
 const authUser = new AuthUserController()
 
-userRoutes.post("/", ensureAuth, ensureAdmin, createUser.handle);
+userRoutes.post("/", createUser.handle);
 userRoutes.post("/login", authUser.handle)
 userRoutes.get("/", getAllUsers.handle)
 
