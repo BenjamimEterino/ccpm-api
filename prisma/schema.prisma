@@ -44,6 +44,9 @@ model project {
   tarefas     tarefa[]
 
   responsavelProjectos responsavel_projecto?
+
+
+  armazems armazem?
 }
 
 model categoria_func {
@@ -95,7 +98,7 @@ model produto {
 
 model requisicao {
   id_requisicao      String               @id @default(uuid())
-  referencia         Int                  
+  referencia         Int
   data               DateTime             @default(now())
   descricao          String?              @db.MediumText
   status             status               @default(pendente)
@@ -107,6 +110,8 @@ model requisicao {
   requisicao_produto requisicao_produto[]
   id_tarefa          String?
   tarefa             tarefa?              @relation(fields: [id_tarefa], references: [id_tarefa])
+
+  transferenciaProdutos transferencia_produto[]
 }
 
 model requisicao_produto {
@@ -152,27 +157,30 @@ model responsavel_projecto {
 }
 
 model armazem {
-  id_armazem String    @id @default(uuid())
-  local      String
+  id_armazem  String  @id @default(uuid())
+  local       String
+  id_projecto String? @unique
+  project     project? @relation(fields: [id_projecto], references: [id_project])
 }
 
 model transferencia_produto {
-  id_transferencia Int    @id @default(autoincrement())
-  data             DateTime  @default(now())
-  quantidade       Int
-  armazem_origem   String?
-  armazem_destino  String?
+  id_transferencia Int         @id @default(autoincrement())
+  data             DateTime    @default(now())
+  armazem_origem   String
+  armazem_destino  String
+  requisicao_id    String?
+  requisicao       requisicao? @relation(fields: [requisicao_id], references: [id_requisicao])
 
   transferenciaLinhas transferencia_linhas[]
 }
 
 model transferencia_linhas {
-  id String @id @default(uuid())
+  id               String                @id @default(uuid())
   id_transferencia Int
   product_id       String
   quantidade       Int
   transferencia    transferencia_produto @relation(fields: [id_transferencia], references: [id_transferencia])
-  product          produto              @relation(fields: [product_id], references: [id_produto])
+  product          produto               @relation(fields: [product_id], references: [id_produto])
 }
 
 enum status {

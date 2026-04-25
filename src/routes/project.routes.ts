@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { AddProjectController } from "../models/projects/useCases/addProjectUseCase/AddProjectController";
+import { AddProjectController } from "../models/projects/useCases/createProject/AddProjectController";
 import { ListProjectsController } from "../models/projects/useCases/listProjects/ListProjectsController";
 import { GetProjectByIdController } from "../models/projects/useCases/getProjectById/GetProjectByIdController";
 import { CreateTaskController } from "../models/projects/useCases/createTask/CreateTaskController";

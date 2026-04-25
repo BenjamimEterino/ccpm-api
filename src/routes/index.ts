@@ -7,6 +7,7 @@ import { productRoutes } from "./product.routes";
 import { requisicaoRouter } from "./requisicoes.routes";
 import {armazemRouter} from "./armazem.routes";
 import { productCategoryRoutes } from "./categoriaProdutos.routes";
+import { transfersRouter } from "./transfers.routes";
 
 const routes = Router()
 
@@ -23,5 +24,6 @@ routes.use("/product", productRoutes)
 routes.use("/requisicao", requisicaoRouter)
 routes.use("/armazem", armazemRouter)
 routes.use("/categoriaProduto", productCategoryRoutes)
+routes.use("/transfer", transfersRouter)
 
 export { routes }

@@ -12,7 +12,7 @@ class RequisicaoRepo implements IRequisicao {
                 descricao,
                 referencia,
                 data: new Date(data),
-                id_tarefa
+                id_tarefa: id_tarefa ? id_tarefa : null
             }
         })
 
@@ -107,7 +107,11 @@ class RequisicaoRepo implements IRequisicao {
                         product: true
                     }
                 },
-                project: true,
+                project: {
+                    include: {
+                        armazems: true
+                    }
+                },
             }
         })
 
